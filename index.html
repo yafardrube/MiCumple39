@@ -4,6 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>La YafiFest 🖤✨</title>
+
+<!-- OG TAGS para preview del link -->
+<meta property="og:title" content="La YafiFest 🖤 — Cumple 39 de Yafar">
+<meta property="og:description" content="Holis, soy Yafar y te invito a mi fiestita. Sáb 18 abril · 21hs · Pilar">
+<meta property="og:image" content="https://yafardrube.github.io/LaYafiFest/preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://yafardrube.github.io/LaYafiFest/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yafardrube.github.io/LaYafiFest/preview.jpg">
+<meta name="twitter:title" content="La YafiFest 🖤 — Cumple 39 de Yafar">
+<meta name="twitter:description" content="Holis, soy Yafar y te invito a mi fiestita. Sáb 18 abril · 21hs · Pilar">
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;700&family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,19 +35,90 @@
   }
 
   html, body {
-    background: var(--bg);
+    background: #050505;
     color: var(--text);
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
   }
 
+  /* MUSIC OVERLAY */
+  #music-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    cursor: pointer;
+    transition: opacity 0.6s;
+  }
+  #music-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .overlay-diamond {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 90px;
+    font-weight: 700;
+    background: linear-gradient(160deg, #b8922e 0%, #f7e89a 30%, #c9a84c 55%, #a87c40 75%, #f2d675 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(201,168,76,0.4)); }
+    50% { filter: drop-shadow(0 0 50px rgba(201,168,76,0.8)); }
+  }
+  .overlay-text {
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #888;
+  }
+  .overlay-btn {
+    background: linear-gradient(135deg, #b8922e, #f2d675, #c9a84c);
+    color: #000;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 60px;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  .overlay-skip {
+    font-size: 11px;
+    color: #333;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: -8px;
+  }
+  .overlay-skip:hover { color: #555; }
+
   .page {
     max-width: 430px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 0 48px;
     position: relative;
     overflow: hidden;
+    background: var(--bg);
+    min-height: 100vh;
+  }
+
+  @media (min-width: 500px) {
+    body { padding: 40px 20px; display: flex; justify-content: center; align-items: flex-start; }
+    .page { border-radius: 24px; border: 1px solid #1a1a1a; min-height: unset; }
+    #music-note { right: calc(50% - 235px) !important; }
   }
 
   /* SPARKLES */
@@ -94,7 +179,7 @@
     color: #ccc;
     margin-top: 14px;
     letter-spacing: 0.5px;
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
   /* DRESS CODE */
@@ -137,15 +222,9 @@
     text-transform: uppercase;
     margin-top: 12px;
     background: linear-gradient(90deg,
-      #c0c0c0 0%,
-      #e8d48b 15%,
-      #ffffff 28%,
-      #f2d675 40%,
-      #c9a84c 50%,
-      #f2d675 60%,
-      #ffffff 72%,
-      #c0c0c0 85%,
-      #e8e8e8 100%);
+      #c0c0c0 0%, #e8d48b 15%, #ffffff 28%,
+      #f2d675 40%, #c9a84c 50%, #f2d675 60%,
+      #ffffff 72%, #c0c0c0 85%, #e8e8e8 100%);
     background-size: 300% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -156,12 +235,7 @@
     0% { background-position: 0% center; }
     100% { background-position: 300% center; }
   }
-  .dress-hint {
-    font-size: 12px;
-    color: #444;
-    margin-top: 10px;
-    letter-spacing: 0.5px;
-  }
+  .dress-hint { font-size: 12px; color: #444; margin-top: 10px; letter-spacing: 0.5px; }
 
   /* SECTIONS */
   .section {
@@ -173,28 +247,15 @@
     position: relative;
     z-index: 1;
   }
-  .section-eyebrow {
-    font-size: 9px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 14px;
-  }
+  .section-eyebrow { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
 
-  /* INFO ROWS */
-  .info-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-  .info-row:last-child { margin-bottom: 0; }
+  .info-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+  .info-row:last-of-type { margin-bottom: 0; }
   .info-icon { font-size: 18px; width: 32px; text-align: center; flex-shrink: 0; margin-top: 1px; }
   .info-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #555; margin-bottom: 4px; }
   .info-val { font-size: 14px; color: var(--text); font-weight: 400; line-height: 1.5; }
   .info-val a { color: var(--gold); text-decoration: none; font-size: 12px; }
 
-  /* CONFIRM BUTTON MINI (arriba) */
   .btn-mini {
     display: block;
     border: 1px solid #c9a84c55;
@@ -208,25 +269,19 @@
     text-decoration: none;
     text-align: center;
     margin-top: 16px;
-    transition: border-color 0.2s, background 0.2s;
   }
-  .btn-mini:active { background: #c9a84c11; }
 
-  /* VIBES */
   .vibes-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .vibe { background: var(--bg3); border: 1px solid #222; border-radius: 30px; padding: 7px 14px; font-size: 12px; color: #aaa; }
 
-  /* COLLAB */
   .collab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
   .collab-item { background: var(--bg3); border: 1px solid #1e1e1e; border-radius: 12px; padding: 12px; font-size: 12px; color: #999; line-height: 1.5; }
   .collab-item strong { display: block; font-size: 11px; color: var(--gold); letter-spacing: 1px; margin-bottom: 4px; font-weight: 600; }
 
-  /* TIPS */
   .tip-list { margin-top: 10px; display: flex; flex-direction: column; gap: 10px; }
   .tip { display: flex; align-items: center; gap: 12px; font-size: 13px; color: #888; }
   .tip-icon { font-size: 16px; }
 
-  /* CTA MAIN */
   .cta-section { margin: 8px 20px 0; text-align: center; z-index: 1; position: relative; }
   .cta-note { font-size: 12px; color: #555; margin-bottom: 16px; line-height: 1.7; padding: 0 8px; }
   .cta-note strong { color: #888; font-weight: 600; }
@@ -247,32 +302,60 @@
   .cta-btn:active { transform: scale(0.97); opacity: 0.85; }
 
   .map-link {
-    display: block;
-    margin-top: 12px;
-    font-size: 12px;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 12px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    display: block; margin-top: 12px; font-size: 12px; color: var(--muted);
+    text-decoration: none; padding: 12px; border: 1px solid var(--border); border-radius: 12px;
   }
-  .map-link:active { border-color: var(--gold); }
 
-  /* DIVIDER */
   .divider { display: flex; align-items: center; gap: 12px; margin: 8px 20px; z-index: 1; position: relative; }
   .div-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #2a2a2a, transparent); }
   .div-gem { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; opacity: 0.5; }
 
-  /* FOOTER */
   .footer { text-align: center; padding: 32px 24px 0; z-index: 1; position: relative; }
   .footer-hash { font-size: 20px; letter-spacing: 4px; color: var(--gold); margin-top: 10px; font-weight: 700; }
   .footer-sub { font-size: 11px; color: #333; letter-spacing: 2px; margin-top: 6px; text-transform: uppercase; }
   .footer-emoji { font-size: 22px; letter-spacing: 3px; }
+
+  /* MUSIC NOTE flotando */
+  #music-note {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    background: #111;
+    border: 1px solid #c9a84c44;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 999;
+    transition: border-color 0.2s;
+  }
+  #music-note:hover { border-color: var(--gold); }
+  #music-note.playing { border-color: var(--gold); }
 </style>
 </head>
 <body>
-<div class="page">
 
+<!-- MUSIC OVERLAY -->
+<div id="music-overlay">
+  <div class="overlay-diamond">✦</div>
+  <div class="overlay-text">La YafiFest</div>
+  <button class="overlay-btn" onclick="startMusic()">✦ entrar con música ✦</button>
+  <div class="overlay-skip" onclick="skipMusic()">entrar sin música</div>
+</div>
+
+<!-- BOTÓN FLOTANTE MÚSICA -->
+<div id="music-note" onclick="toggleMusic()" title="música">🎵</div>
+
+<!-- AUDIO -->
+<audio id="bgmusic" loop preload="none">
+  <source src="diamond.mp3" type="audio/mpeg">
+</audio>
+
+<div class="page">
   <div class="sparkle-field" id="sf"></div>
 
   <!-- HERO -->
@@ -280,20 +363,20 @@
     <div class="hero-bg"></div>
     <div class="age-num">39</div>
     <div class="birthday-tag">✦ cumpleaños ✦</div>
-    <div class="hero-greeting">Holis! 🙃 llegó La YafiFest<br>y te estoy invitando</div>
+    <div class="hero-greeting">Holis, soy Yafar 🙃<br>y te invito a mi fiestita</div>
   </div>
 
   <!-- DRESS CODE -->
   <div class="dressbox">
     <div class="dress-eyebrow">✦ dress code ✦</div>
     <div class="dress-main">TOTAL BLACK</div>
-    <div class="dress-brillos">✦ brillos plateados & dorados ✦</div>
+    <div class="dress-brillos">✦ brillos, plateados & dorados ✦</div>
     <div class="dress-hint">sugerencia — si tenés ganas 🖤</div>
   </div>
 
   <div class="divider"><div class="div-line"></div><div class="div-gem"></div><div class="div-line"></div></div>
 
-  <!-- DATOS + BOTÓN ARRIBA -->
+  <!-- DATOS -->
   <div class="section">
     <div class="section-eyebrow">✦ los datos</div>
     <div class="info-row">
@@ -361,7 +444,7 @@
 
   <div class="divider"><div class="div-line"></div><div class="div-gem"></div><div class="div-line"></div></div>
 
-  <!-- CTA PRINCIPAL -->
+  <!-- CTA -->
   <div class="cta-section">
     <p class="cta-note">
       Para entrar al barrio necesito tu <strong>DNI</strong>.<br>
@@ -405,6 +488,7 @@
 </div>
 
 <script>
+  // SPARKLES
   const sf = document.getElementById('sf');
   const colors = ['#f2d675','#c9a84c','#fffde4','#c0c0c0','#d8d8d8','#ffffff','#e8d48b','#b8922e'];
   for (let i = 0; i < 40; i++) {
@@ -413,6 +497,43 @@
     const s = Math.random() * 4 + 1.5;
     el.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;top:${Math.random()*200}%;background:${colors[Math.floor(Math.random()*colors.length)]};--d:${(Math.random()*4+2).toFixed(1)}s;--delay:-${(Math.random()*6).toFixed(1)}s`;
     sf.appendChild(el);
+  }
+
+  // MUSIC
+  const audio = document.getElementById('bgmusic');
+  const overlay = document.getElementById('music-overlay');
+  const noteBtn = document.getElementById('music-note');
+  let playing = false;
+
+  function startMusic() {
+    overlay.classList.add('hidden');
+    audio.volume = 0.5;
+    audio.play().then(() => {
+      playing = true;
+      noteBtn.textContent = '🔊';
+      noteBtn.classList.add('playing');
+    }).catch(() => {
+      noteBtn.textContent = '🎵';
+    });
+  }
+
+  function skipMusic() {
+    overlay.classList.add('hidden');
+  }
+
+  function toggleMusic() {
+    if (playing) {
+      audio.pause();
+      playing = false;
+      noteBtn.textContent = '🎵';
+      noteBtn.classList.remove('playing');
+    } else {
+      audio.play().then(() => {
+        playing = true;
+        noteBtn.textContent = '🔊';
+        noteBtn.classList.add('playing');
+      });
+    }
   }
 </script>
 </body>
